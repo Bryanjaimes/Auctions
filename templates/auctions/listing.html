@@ -1,0 +1,85 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div id="image">
+        <img src = "{{ listing.image }}" id = "img2">
+    </div>
+
+    <div id = "info">
+        <h2 style = "margin-bottom:50px;">{{ listing.name }}</h2>
+
+        {% if listing.isactive %}
+            {% if listing.startingbid > listing.highestbid %}
+                <h4>Starting Bid: ${{ listing.startingbid }}</h4>
+            {% else %}
+                <h4>Current Bid: ${{ listing.highestbid }}</h4>
+            {% endif %}
+        {% else %}
+            <h4>Winner: <b>{{ listing.winner }}</b></h4>
+        {% endif %}
+
+        <p>{{ listing.description }}</p> 
+        <div style ="color:grey;"> Posted by: <b>{{ listing.seller }}</b></div>
+        <div style ="color:grey; margin-bottom:20px;"> Date Posted: {{ listing.datetime }}</div> 
+
+        {% if user.is_authenticated and listing.isactive %}
+            <form action="{% url 'makebid' listing.id %}" method="POST">
+                {% csrf_token %}
+
+                <label for = "highestbid">Place Bid (USD)</label>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" name="price" style = "width:100px;float:left">
+                    <input class="btn btn-primary" style="margin-bottom:20px; float:left; margin-left:20px" type="Submit"> 
+                </div>
+            </form>
+        {% endif %}
+
+        {% if message %}
+            <div style = "float:left; padding-left:10px;"><b>{{ message }}</b></div>
+        {% endif %}
+
+        {% if user.is_authenticated and listing.isactive %}
+            {% if listing.seller == user.username %}
+                <div style = "float:left; width:100%">
+                    <a href = "{% url 'closelisting' listing.id %}"><button type="button" class="btn btn-danger">Close Auction</button></a>
+                </div>
+            {% else %}
+                <div style = "float:left; width:100%">
+                    {% if not watchlist %}
+                    <a href="{% url 'addwatchlist' listing.id %}"><button class="btn btn-info">Add to watchlist</button></a>
+                    {% else %}
+                    <a href="{% url 'addwatchlist' listing.id %}"><button class="btn btn-info">Remove from Watchlist</button></a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+    <div id = "comment">
+        {% if user %}
+            <form action="{% url 'addcomment' listing.id %}" method="POST">
+                {% csrf_token %}
+
+                <h3 style = "text-align:center;padding-top:20px;">Comments</h3>
+                <div class="form-group">
+                    <textarea class="form-control" name="comment" rows="2" placeholder="Leave a comment"></textarea>
+                </div>
+                <input class="btn btn-primary" style="margin-left:auto;margin-right:auto;margin-bottom:20px;" type="Submit"> 
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+        <div>
+            <div style ="float:left;"><b>{{ comment.buyer }}</b></div>
+            <div style ="color:grey;float:left;padding-left:5px;"> on {{ comment.datetime }} </div> 
+            <br>
+                {{ comment.message }}
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+
+    {% if message %}
+    <h4>{{ message }}</h4>
+    {% endif %}
+
+    {% for listing in listings %}
+
+        <div id="listing">
+            <div class="card border-light mb-3" style="max-width: 400px; max-height: 400px; margin-left: auto; margin-right: auto;">
+                    <img src = "{{ listing.image }}" id = "img1">
+                <div class="card-header" style="text-align: center; text-decoration:none">  
+                    <a href = "/listing/{{ listing.id }}" style="text-decoration: none;">{{ listing.name }}</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Starting Bid: ${{ listing.startingbid }}</h5>
+                    <p class="card-text" style ="color:grey;">Date Posted: {{ listing.datetime }}</p>    
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

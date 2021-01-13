@@ -1,0 +1,77 @@
+body {
+    padding: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+h2{
+    text-align:center;
+}
+#login{
+    text-align:center;
+    width:1500px;
+    padding-top:20px;
+}
+#nav{
+    float:left;
+    height:40px;
+    width:40%;
+}
+#navinside{
+    display:block;
+    margin-right:auto;
+    margin-left:auto;
+}
+#logo{
+    height:40px;
+    width:30%;
+    float:left;
+}
+#logoimg{
+    width:42%;
+    max-height: 40px;
+    display:block;
+    margin-right:auto;
+}
+#img1{
+    height:300px;
+    max-width:300px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+#img2{
+    height:600px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom:20px;
+}
+#container{
+    margin-left:auto;
+    margin-right:auto;
+    width:1500px;
+    height:100%;
+}
+#listing{
+    height:520px;
+    width:500px;
+    float:left;
+}
+#image{
+    height:600px;
+    width:750px;
+    float:left;
+    margin-top:50px;
+}
+#info{
+    height:600px;
+    width:750px;
+    float:left;
+    margin-top:50px;
+}
+#comment{
+    float:left;
+    width:1500px;
+    padding-bottom:30px;
+}
+
+

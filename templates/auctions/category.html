@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ category }}</h2>
+
+    {% if message %}
+    <h4>{{ message }}</h4>
+    {% endif %}
+
+    <div class="dropdown" style = "margin-bottom:25px;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Category
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/category/Art">Art</a>
+            <a class="dropdown-item" href="/category/Beauty">Beauty</a>
+            <a class="dropdown-item" href="/category/Books">Books</a>
+            <a class="dropdown-item" href="/category/Cell Phones">Cell Phones</a>
+            <a class="dropdown-item" href="/category/Consumer Electronics">Consumer Electronics</a>
+            <a class="dropdown-item" href="/category/Home">Home</a>
+            <a class="dropdown-item" href="/category/Personal Computers">Personal Computers</a>
+            <a class="dropdown-item" href="/category/Sports">Sports</a>
+            <a class="dropdown-item" href="/category/Video Games">Video Games</a>
+        </div>
+    </div>
+
+    {% for listing in listings %}
+
+        <div id="listing">
+            <div class="card border-light mb-3" style="max-width: 400px; max-height: 400px; margin-left: auto; margin-right: auto;">
+                    <img src = "{{ listing.image }}" id = "img1">
+                <div class="card-header" style="text-align: center; text-decoration:none">  
+                    <a href = "/listing/{{ listing.id }}" style="text-decoration: none;">{{ listing.name }}</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Starting Bid: ${{ listing.startingbid }}</h5>
+                    <p class="card-text" style ="color:grey;">Date Posted: {{ listing.datetime }}</p>    
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
